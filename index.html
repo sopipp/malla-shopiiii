@@ -167,5 +167,47 @@
 
     renderMalla();
   </script>
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+<style>
+  #felicitacion {
+    position: fixed;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff0f5;
+    color: #b64274;
+    font-size: 2em;
+    font-weight: bold;
+    padding: 20px 40px;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    z-index: 9999;
+    display: none;
+  }
+</style>
+<div id="felicitacion">¡Semestre aprobado, Monita! 🎉</div>
+<script>
+  function revisarSemestreAprobado() {
+    const bloques = document.querySelectorAll('.semestre');
+    bloques.forEach(bloque => {
+      const checks = bloque.querySelectorAll('input[type="checkbox"]');
+      const todosMarcados = [...checks].every(c => c.checked || c.disabled);
+      if (todosMarcados && !bloque.classList.contains('felicitado')) {
+        bloque.classList.add('felicitado');
+        mostrarConfetti();
+      }
+    });
+  }
+
+  function mostrarConfetti() {
+    const felicitacion = document.getElementById('felicitacion');
+    felicitacion.style.display = 'block';
+    confetti({ particleCount: 150, spread: 90, origin: { y: 0.6 } });
+    setTimeout(() => {{
+      felicitacion.style.display = 'none';
+    }}, 4000);
+  }
+</script>
 </body>
 </html>
